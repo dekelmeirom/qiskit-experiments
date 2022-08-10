@@ -68,7 +68,7 @@ class QuantumVolumeAnalysis(BaseAnalysis):
             elif trial_depth != depth:
                 raise AnalysisError("QuantumVolume circuits do not all have the same depth.")
             heavy_output = self._calc_ideal_heavy_output(
-                data_trial["metadata"]["ideal_probabilities"], trial_depth
+                np.array(data_trial["metadata"]["ideal_probabilities"]), trial_depth
             )
             heavy_output_prob_exp.append(
                 self._calc_exp_heavy_output_probability(data_trial, heavy_output)
@@ -99,7 +99,7 @@ class QuantumVolumeAnalysis(BaseAnalysis):
         # Keys are bit strings and values are probabilities of observing those strings
         all_output_prob_ideal = {
             format_spec.format(b): float(np.real(probabilities_vector[b]))
-            for b in range(2**depth)
+            for b in range(2 ** depth)
         }
 
         median_probabilities = float(np.real(np.median(probabilities_vector)))
@@ -167,7 +167,7 @@ class QuantumVolumeAnalysis(BaseAnalysis):
             float: confidence level in decimal (not percentage).
         """
 
-        confidence_level = 0.5 * (1 + math.erf(z_value / 2**0.5))
+        confidence_level = 0.5 * (1 + math.erf(z_value / 2 ** 0.5))
 
         return confidence_level
 
@@ -211,7 +211,7 @@ class QuantumVolumeAnalysis(BaseAnalysis):
             warnings.warn("Must use at least 100 trials to consider Quantum Volume as successful.")
 
         if mean_hop > threshold and trials >= 100:
-            quantum_volume = 2**depth
+            quantum_volume = 2 ** depth
             success = True
 
         hop_result = AnalysisResultData(
@@ -260,14 +260,7 @@ class QuantumVolumeAnalysis(BaseAnalysis):
         two_sigma = 2 * (hop_accumulative * (1 - hop_accumulative) / trial_list) ** 0.5
 
         # Plot individual HOP as scatter
-        ax = plot_scatter(
-            trial_list,
-            heavy_probs,
-            ax=ax,
-            s=3,
-            zorder=3,
-            label="Individual HOP",
-        )
+        ax = plot_scatter(trial_list, heavy_probs, ax=ax, s=3, zorder=3, label="Individual HOP",)
         # Plot accumulative HOP
         ax.plot(trial_list, hop_accumulative, color="r", label="Cumulative HOP")
 
