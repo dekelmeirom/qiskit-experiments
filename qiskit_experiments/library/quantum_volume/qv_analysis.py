@@ -68,7 +68,7 @@ class QuantumVolumeAnalysis(BaseAnalysis):
             elif trial_depth != depth:
                 raise AnalysisError("QuantumVolume circuits do not all have the same depth.")
             heavy_output = self._calc_ideal_heavy_output(
-                data_trial["metadata"]["ideal_probabilities"], trial_depth
+                np.array(data_trial["metadata"]["ideal_probabilities"]), trial_depth
             )
             heavy_output_prob_exp.append(
                 self._calc_exp_heavy_output_probability(data_trial, heavy_output)
