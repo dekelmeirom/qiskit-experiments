@@ -167,7 +167,6 @@ intersphinx_mapping = {
     "qiskit_aer": ("https://qiskit.github.io/qiskit-aer/", None),
     "qiskit_dynamics": ("https://qiskit-extensions.github.io/qiskit-dynamics/", None),
     "qiskit_ibm_runtime": ("https://docs.quantum.ibm.com/api/qiskit-ibm-runtime/", None),
-    "qiskit_ibm_provider": ("https://docs.quantum.ibm.com/api/qiskit-ibm-provider/", None),
 }
 
 
@@ -214,7 +213,6 @@ def setup(app):
 # Should come up with better way to address this
 
 from qiskit_experiments.curve_analysis import ParameterRepr
-from qiskit_experiments.curve_analysis import SeriesDef
 
 
 def maybe_skip_member(app, what, name, obj, skip, options):
@@ -228,9 +226,6 @@ def maybe_skip_member(app, what, name, obj, skip, options):
         "y",
         "y_err",
         "name",
-        "filter_kwargs",
-        "fit_func",
-        "signature",
         "artifact_id",
         "artifact_data",
         "device_components",
@@ -240,10 +235,6 @@ def maybe_skip_member(app, what, name, obj, skip, options):
     skip_members = [
         ParameterRepr.repr,
         ParameterRepr.unit,
-        SeriesDef.plot_color,
-        SeriesDef.plot_symbol,
-        SeriesDef.model_description,
-        SeriesDef.canvas,
     ]
     if not skip:
         return (name in skip_names or obj in skip_members) and what == "attribute"
