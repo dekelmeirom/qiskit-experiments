@@ -39,6 +39,22 @@ First, we display the default figure from a :class:`.Rabi` experiment as a start
     with ``python -m pip install qiskit-dynamics qiskit-aer qiskit-ibm-runtime``.
 
 .. jupyter-execute::
+    :hide-code:
+
+    import warnings
+
+    warnings.filterwarnings(
+        "ignore",
+        message=".*Due to the deprecation of Qiskit Pulse.*",
+        category=DeprecationWarning,
+    )
+    warnings.filterwarnings(
+        "ignore",
+        message=".*The entire Qiskit Pulse package is being deprecated.*",
+        category=DeprecationWarning,
+    )
+
+.. jupyter-execute::
 
     import numpy as np
 
